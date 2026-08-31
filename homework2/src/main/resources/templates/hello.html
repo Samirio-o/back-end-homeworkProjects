@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hello Thymeleaf</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <!--th:if is the equivalent of if statement for html-->
+    <div th:if="${age} &gt; 17">
+        <p th:text="'Welcome ' + ${name} + '!'"></p>
+    </div>
+    <div th:if="${age} &lt;= 17">
+        <p>You are too young!</p>
+    </div>
+</body>
+</html>
