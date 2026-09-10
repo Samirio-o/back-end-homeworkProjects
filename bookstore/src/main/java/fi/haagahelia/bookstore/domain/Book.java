@@ -12,6 +12,7 @@ public class Book {
     private int publicationYear;
     private String isbn;
     private double price;
+    
     @Id // Identifies the primary key of the table
     @GeneratedValue(strategy = GenerationType.AUTO) // The value of id will be generated automatically
     private Long id; // Unique identifier for each book, Long is used because can be null

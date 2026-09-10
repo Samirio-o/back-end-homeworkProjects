@@ -17,10 +17,13 @@ public class BookstoreApplication {
 	@Bean // Spring Boot creates and manages this object automatically
 	// CommandLineRunner runs automatically after the app starts
 	public CommandLineRunner run(BookRepository bookRepository) {
+		// Lambda expression that runs after the application starts
+		//Method without a name
 		return (args) -> {
 			// Save some books to the database
-			bookRepository.save(new Book("Book1", "Author1", 2025, "isbn1", 10.99));
-			bookRepository.save(new Book("Book2", "Author2", 2026, "isbn2", 7.99));
+			bookRepository.save(new Book("Don Quixote", "Miguel de Cervantes", 1605, "978-0060934347", 12.99));
+			bookRepository.save(new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 1997, "978-0590353427", 14.99));
+			bookRepository.save(new Book("The Little Prince", "Antoine de Saint-Exupery", 1943, "978-0156012195", 9.99));
 		};
 	}
 
