@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import fi.haagahelia.bookstore.domain.Book;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -50,6 +52,14 @@ public class BookController {
         bookRepository.save(book);
         return "redirect:/booklist";
     }
+
+    // Edit the book with the given id and redirect to the editbook page
+    @GetMapping("/edit/{id}")
+    public String editBook(@PathVariable Long id, Model model) {
+        model.addAttribute("book", bookRepository.findById(id).get()); //.get() extracts the actual book
+        return "editbook";
+    }
+    
     
     
 }
