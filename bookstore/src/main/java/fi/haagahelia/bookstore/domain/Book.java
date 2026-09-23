@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity // It tells to JPA that the class will be mapped to a table in the database
 public class Book {
@@ -12,7 +13,10 @@ public class Book {
     private int publicationYear;
     private String isbn;
     private double price;
-    
+
+    @ManyToOne // Defines a many-to-one relationship: many books can belong to one category.
+    private Category category;
+
     @Id // Identifies the primary key of the table
     @GeneratedValue(strategy = GenerationType.AUTO) // The value of id will be generated automatically
     private Long id; // Unique identifier for each book, Long is used because can be null
@@ -26,7 +30,7 @@ public class Book {
     }
 
     public Book() {
-    
+
     }
 
     public String getTitle() {
@@ -51,6 +55,14 @@ public class Book {
 
     public Long getId() {
         return id;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public void setTitle(String title) {

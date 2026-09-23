@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import fi.haagahelia.bookstore.repository.BookRepository;
+import fi.haagahelia.bookstore.repository.CategoryRepository;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,10 +14,11 @@ import fi.haagahelia.bookstore.domain.Book;
 @Controller
 public class BookController {
     private final BookRepository bookRepository; // Repository instance used to access the database and fetch all books
-
+    private final CategoryRepository categoryRepository;
     // Inject the BookRepository into the controller
-    public BookController(BookRepository bookRepository) {
+    public BookController(BookRepository bookRepository, CategoryRepository categoryRepository) {
         this.bookRepository = bookRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @GetMapping("/booklist")
@@ -35,6 +38,7 @@ public class BookController {
     @GetMapping("/add")
     public String addBook(Model model) {
         model.addAttribute("book", new Book());
+        model.addAttribute("categories", categoryRepository.findAll());
         return "addbook";
     }
 
@@ -48,6 +52,7 @@ public class BookController {
     @GetMapping("/edit/{id}")
     public String editBook(@PathVariable Long id, Model model) {
         model.addAttribute("book", bookRepository.findById(id).get()); // .get() extracts the actual book
+        model.addAttribute("categories", categoryRepository.findAll());
         return "addbook";
     }
 
