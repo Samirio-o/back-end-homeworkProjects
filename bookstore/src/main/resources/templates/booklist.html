@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <title>Book List</title>
@@ -7,7 +7,9 @@
 </head>
 
 <body>
+    <h1>Hello <span sec:authentication="name"></span>!</h1>
     <h1>Books</h1>
+
 
     <table class="table table-striped">
         <thead>
@@ -28,12 +30,21 @@
                 <td th:text="${book.isbn}"></td>
                 <td th:text="${book.price}"></td>
                 <td th:text="${book.category !=null ? book.category.name : ''}"></td>
-                <td><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a></td>
                 <td><a th:href="@{/edit/{id}(id=${book.id})}">Edit</a></td>
+                <td sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">
+                        Delete
+                    </a>
+                </td>
             </tr>
         </tbody>
     </table>
     <a href="/add" class="btn btn-success">Add Book</a>
+
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out" />
+    </form>
+
 
 </body>
 

@@ -1,5 +1,6 @@
 package fi.haagahelia.bookstore.web;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import fi.haagahelia.bookstore.domain.Book;
+
 
 @Controller
 public class BookController {
@@ -28,6 +30,8 @@ public class BookController {
         return "booklist";
     }
 
+    // Only allow users with the ADMIN role to access this method
+    @PreAuthorize ("hasRole('ADMIN')")
     // Delete the book id from the URL and redirect to the booklist page
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable Long id) {
@@ -56,4 +60,9 @@ public class BookController {
         return "addbook";
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+    
 }
